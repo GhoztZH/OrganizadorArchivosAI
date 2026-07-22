@@ -10,6 +10,12 @@ EXTENSIONES_POR_CATEGORIA = {
     "Audio": {".mp3", ".wav", ".flac", ".aac"},
     "Comprimidos": {".zip", ".rar", ".7z", ".tar", ".gz"},
     "Instaladores": {".exe", ".msi"},
+    "Codigo": {
+    ".py", ".js", ".html", ".css",
+    ".java", ".cs", ".cpp",
+    ".c", ".php", ".sql",
+    ".json", ".xml", ".yaml"
+    },
 }
 
 EXTENSION_A_CATEGORIA = {
