@@ -3,7 +3,7 @@
 CATEGORIA_OTROS = "Otros"
 
 EXTENSIONES_POR_CATEGORIA = {
-    "Documentos": {".pdf", ".docx", ".doc", ".txt"},
+    "Documentos": {".pdf", ".docx", ".doc", ".txt", ".pptx", ".ppt"},
     "Hojas de cálculo": {".xlsx", ".xls", ".csv"},
     "Imágenes": {".jpg", ".jpeg", ".png", ".gif", ".bmp", ".svg"},
     "Videos": {".mp4", ".avi", ".mkv", ".mov"},
