@@ -37,8 +37,9 @@ def _esperar_archivo_estable(ruta: Path) -> bool:
 class ManejadorDescargas(FileSystemEventHandler):
     """Reacciona a archivos nuevos o renombrados y los organiza por categoría."""
 
-    def __init__(self, carpeta_base: Path):
+    def __init__(self, carpeta_base: Path, on_organizado=None):
         self.carpeta_base = Path(carpeta_base)
+        self.on_organizado = on_organizado
 
     def on_created(self, event):
         if event.is_directory:
@@ -57,16 +58,23 @@ class ManejadorDescargas(FileSystemEventHandler):
             return
         if not _esperar_archivo_estable(ruta):
             return
+        nombre_original = ruta.name
         try:
-            organizar_archivo(ruta, self.carpeta_base)
+            destino = organizar_archivo(ruta, self.carpeta_base)
         except FileNotFoundError:
-            pass
+            return
+        if self.on_organizado is not None:
+            self.on_organizado(nombre_original, destino.parent.name)
 
 
-def iniciar_watcher(carpeta_base: Path) -> Observer:
-    """Inicia la vigilancia de `carpeta_base` y devuelve el observador en marcha."""
+def iniciar_watcher(carpeta_base: Path, on_organizado=None) -> Observer:
+    """Inicia la vigilancia de `carpeta_base` y devuelve el observador en marcha.
+
+    Si se indica `on_organizado`, se llama con (nombre_archivo, categoria)
+    cada vez que un archivo nuevo es organizado.
+    """
     carpeta_base = Path(carpeta_base)
-    manejador = ManejadorDescargas(carpeta_base)
+    manejador = ManejadorDescargas(carpeta_base, on_organizado=on_organizado)
     observer = Observer()
     observer.schedule(manejador, str(carpeta_base), recursive=False)
     observer.start()

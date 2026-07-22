@@ -10,8 +10,9 @@ from organizador.watcher import iniciar_watcher
 class OrganizadorService:
     """Coordina el barrido inicial y la vigilancia continua de una carpeta."""
 
-    def __init__(self, carpeta_base: Path):
+    def __init__(self, carpeta_base: Path, on_organizado=None):
         self.carpeta_base = Path(carpeta_base)
+        self.on_organizado = on_organizado
         self._observer = None
 
     @property
@@ -26,9 +27,12 @@ class OrganizadorService:
             if ruta.suffix.lower() in EXTENSIONES_TEMPORALES:
                 continue
             try:
-                organizar_archivo(ruta, self.carpeta_base)
+                destino = organizar_archivo(ruta, self.carpeta_base)
             except OSError as error:
                 print(f"No se pudo organizar {ruta.name}: {error}")
+                continue
+            if self.on_organizado is not None:
+                self.on_organizado(ruta.name, destino.parent.name)
 
     def iniciar(self) -> None:
         """Organiza lo existente y arranca la vigilancia de nuevos archivos."""
@@ -37,7 +41,7 @@ class OrganizadorService:
         if not self.carpeta_base.is_dir():
             raise FileNotFoundError(f"No se encontró la carpeta: {self.carpeta_base}")
         self.organizar_existentes()
-        self._observer = iniciar_watcher(self.carpeta_base)
+        self._observer = iniciar_watcher(self.carpeta_base, on_organizado=self.on_organizado)
 
     def detener(self) -> None:
         """Detiene la vigilancia si está activa."""
