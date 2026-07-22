@@ -34,4 +34,8 @@ pip install -r requirements.txt
 
 ## Uso
 
-_Pendiente: se documentará cuando el punto de entrada (`main.py`) esté disponible._
+```bash
+python main.py
+```
+
+Al iniciar, organiza primero los archivos que ya estén en la carpeta Descargas del usuario actual y luego queda vigilando en tiempo real hasta que se presione `Ctrl+C`.
