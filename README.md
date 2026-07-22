@@ -21,7 +21,7 @@ En desarrollo. Actualmente implementado:
 
 - [x] Clasificación de archivos por extensión (`organizador/classifier.py`)
 - [x] Movimiento automático de archivos a su carpeta de categoría (`organizador/organizer.py`)
-- [ ] Detección de archivos nuevos en Descargas
+- [x] Detección de archivos nuevos en Descargas (`organizador/watcher.py`)
 - [ ] Interfaz de escritorio (Tkinter)
 
 ## Instalación
