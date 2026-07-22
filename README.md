@@ -20,7 +20,7 @@ Aplicación de escritorio en Python para Windows que organiza automáticamente l
 En desarrollo. Actualmente implementado:
 
 - [x] Clasificación de archivos por extensión (`organizador/classifier.py`)
-- [ ] Movimiento automático de archivos a su carpeta de categoría
+- [x] Movimiento automático de archivos a su carpeta de categoría (`organizador/organizer.py`)
 - [ ] Detección de archivos nuevos en Descargas
 - [ ] Interfaz de escritorio (Tkinter)
 
